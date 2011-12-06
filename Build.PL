@@ -13,6 +13,10 @@ my $builder = Module::Build->new(
 
     requires => {
         'perl' => 5.008_001,
+	'Scalar::Util' => '1.14',
+	'Sub::Install' => '0',
+	'Class::Method::Modifiers' => '0',
+	'LWP::UserAgent' => '0',
     },
 
     build_requires => {
