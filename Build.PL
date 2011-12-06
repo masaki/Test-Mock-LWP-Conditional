@@ -1,7 +1,7 @@
 use strict;
-use Module::Build;
+use inc::MyBuilder;
 
-my $builder = Module::Build->new(
+my $builder = inc::MyBuilder->new(
     module_name => 'Test::Mock::LWP::Conditional',
     dist_name => 'Test-Mock-LWP-Conditional',
     dist_version_from => 'lib/Test/Mock/LWP/Conditional.pm',
@@ -9,6 +9,7 @@ my $builder = Module::Build->new(
 
     configure_requires => {
         'Module::Build' => '0.38',
+        'Pod::Perldoc' => '0',
     },
 
     requires => {

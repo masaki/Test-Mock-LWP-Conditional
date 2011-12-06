@@ -1,6 +1,6 @@
 =head1 NAME
 
-Test::Mock::LWP::Conditional
+Test::Mock::LWP::Conditional - A module that ...
 
 =head1 SYNOPSIS
 
@@ -8,9 +8,19 @@ Test::Mock::LWP::Conditional
 
 =head1 DESCRIPTION
 
-Test::Mock::LWP::Conditional is
+This module stubs out LWP::UserAgent's request.
 
 =head1 METHODS
+
+=over 4
+
+=item * stub_request($uri, $res)
+
+=item * reset_all
+
+Clear all stub requests.
+
+=back
 
 =head1 AUTHOR
 
@@ -23,4 +33,10 @@ it under the same terms as Perl itself.
 
 =head1 SEE ALSO
 
+L<Test::Mock::LWP>, L<Test::Mock::LWP::Dispatch>, L<Test::MockHTTP>, L<Test::LWP::MockSocket::http>
+
+L<LWP::UserAgent>
+
+
 =cut
+
