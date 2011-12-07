@@ -7,19 +7,22 @@ use LWP::UserAgent;
 use HTTP::Response;
 
 sub lwp { LWP::UserAgent->new }
+sub res { HTTP::Response->new(@_) }
+sub status { $_[0]->get($_[1])->code }
 
-my $httpd = run_http_server { [204, [], []] };
-is lwp->get($httpd->endpoint)->code => 204, 'returns a real response';
+my $httpd = run_http_server { res(204) };
 
-Test::Mock::LWP::Conditional->stub_request(
-    $httpd->endpoint => HTTP::Response->new(404)
-);
-is lwp->get($httpd->endpoint)->code => 404, 'returns a stub response';
+is status(lwp, $httpd->endpoint) => 204, 'returns a real response';
 
 Test::Mock::LWP::Conditional->stub_request(
-    $httpd->endpoint => sub { HTTP::Response->new(500) }
+    $httpd->endpoint => res(404)
 );
-is lwp->get($httpd->endpoint)->code => 500, 'returns a code stubed response';
+is status(lwp, $httpd->endpoint) => 404, 'returns a stub response';
+
+Test::Mock::LWP::Conditional->stub_request(
+    $httpd->endpoint => sub { res(500) }
+);
+is status(lwp, $httpd->endpoint) => 500, 'returns a code stubed response';
 
 done_testing;
 

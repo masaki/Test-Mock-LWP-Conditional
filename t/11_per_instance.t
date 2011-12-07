@@ -6,16 +6,20 @@ use Test::Mock::LWP::Conditional;
 use LWP::UserAgent;
 use HTTP::Response;
 
-my $httpd = run_http_server { [204, [], []] };
+sub lwp { LWP::UserAgent->new }
+sub res { HTTP::Response->new(@_) }
+sub status { $_[0]->get($_[1])->code }
 
-my $ua = LWP::UserAgent->new;
-is $ua->get($httpd->endpoint)->code => 204, 'returns a real response';
+my $httpd = run_http_server { res(204) };
 
-$ua->stub_request($httpd->endpoint => HTTP::Response->new(404));
-is $ua->get($httpd->endpoint)->code => 404, 'returns a stub response';
+my $ua = lwp;
+is status($ua, $httpd->endpoint) => 204, 'returns a real response';
 
-my $new_ua = LWP::UserAgent->new;
-is $new_ua->get($httpd->endpoint)->code => 204, 'another instance returns a real response';
+$ua->stub_request($httpd->endpoint => res(404));
+is status($ua, $httpd->endpoint) => 404, 'returns a stub response';
+
+my $new_ua = lwp;
+is status($new_ua, $httpd->endpoint) => 204, 'another instance returns a real response';
 
 done_testing;
 
