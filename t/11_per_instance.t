@@ -6,11 +6,6 @@ use Test::Mock::LWP::Conditional;
 use LWP::UserAgent;
 use HTTP::Response;
 
-sub http_status_ok {
-    my ($ua, $url, $status) = @_;
-    is $ua->get($url)->code, $status;
-}
-
 my $httpd = run_http_server { [204, [], []] };
 
 my $ua = LWP::UserAgent->new;
