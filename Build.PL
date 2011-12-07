@@ -9,7 +9,6 @@ my $builder = inc::MyBuilder->new(
 
     configure_requires => {
         'Module::Build' => '0.38',
-        'Pod::Perldoc' => '0',
     },
 
     requires => {
@@ -29,10 +28,17 @@ my $builder = inc::MyBuilder->new(
     recursive_test_files => 1,
 
     create_readme => 1,
-    create_license => 1,
-    create_makefile_pl => 'small',
+    #create_license => 1, # Software::License
 
-    no_index => { directory => ['inc'] },
+    no_index => {
+        directory => ['inc'],
+    },
+
+    meta_merge => {
+        resources => {
+            repository => 'git://github.com/masaki/Test-Mock-LWP-Conditional.git',
+        },
+    },
 );
 
 $builder->create_build_script;
