@@ -7,7 +7,7 @@ use LWP::UserAgent;
 use Scalar::Util qw(blessed refaddr);
 use Sub::Install qw(install_sub);
 use Class::Method::Modifiers qw(install_modifier);
-use Test::Mock::LWP::Conditional::Container;
+use Test::Mock::LWP::Conditional::Stubs;
 
 our $VERSION = '0.01';
 $VERSION = eval $VERSION;
@@ -18,7 +18,7 @@ sub _set_stub {
     my ($key, $uri, $res) = @_;
 
     $Stubs->{$key} ||= +{};
-    $Stubs->{$key}->{$uri} ||= Test::Mock::LWP::Conditional::Container->new;
+    $Stubs->{$key}->{$uri} ||= Test::Mock::LWP::Conditional::Stubs->new;
 
     $Stubs->{$key}->{$uri}->add($res);
 }

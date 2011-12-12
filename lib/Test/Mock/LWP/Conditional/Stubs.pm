@@ -1,4 +1,4 @@
-package Test::Mock::LWP::Conditional::Container;
+package Test::Mock::LWP::Conditional::Stubs;
 
 use strict;
 use warnings;
