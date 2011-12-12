@@ -4,6 +4,7 @@ use inc::MyBuilder;
 my $builder = inc::MyBuilder->new(
     module_name => 'Test::Mock::LWP::Conditional',
     dist_name => 'Test-Mock-LWP-Conditional',
+    dist_author => 'NAKAGAWA Masaki <masaki@cpan.org>',
     dist_version_from => 'lib/Test/Mock/LWP/Conditional.pm',
     license => 'perl',
 
@@ -27,7 +28,7 @@ my $builder = inc::MyBuilder->new(
     test_files => 't/',
     recursive_test_files => 1,
 
-    create_readme => 1,
+    #create_readme => 1,
     #create_license => 1, # Software::License
 
     no_index => {
