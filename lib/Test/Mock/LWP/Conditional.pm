@@ -68,7 +68,28 @@ Test::Mock::LWP::Conditional - A module that ...
 
 =head1 SYNOPSIS
 
+    use LWP::UserAgent;
+    use HTTP::Response;
+
+    use Test::More
     use Test::Mock::LWP::Conditional;
+
+    my $uri = 'http://example.com/';
+
+    # global
+    Test::Mock::LWP::Conditional->stub_request($uri => HTTP::Response->new(503));
+    is LWP::UserAgent->new->get($uri)->code => 503;
+
+    # lexical
+    my $ua = LWP::UserAgent->new;
+    $ua->stub_request($uri => sub { HTTP::Response->new(500) });
+    is $ua->get($uri)->code => 500;
+    is LWP::UserAgent->new->get($uri)->code => 503;
+
+    # reset
+    Test::Mock::LWP::Conditional->reset_all;
+    is $ua->get($uri)->code => 200;
+    is LWP::UserAgent->new->get($uri)->code => 200;
 
 =head1 DESCRIPTION
 
@@ -79,6 +100,8 @@ This module stubs out LWP::UserAgent's request.
 =over 4
 
 =item * stub_request($uri, $res)
+
+Sets stub response for requesed URI.
 
 =item * reset_all
 
