@@ -1,7 +1,9 @@
 blib/
 pm_to_blib
+Test-Mock-LWP-Conditional-*/
 MANIFEST
 MANIFEST.bak
+README
 Makefile
 Makefile.old
 Build
