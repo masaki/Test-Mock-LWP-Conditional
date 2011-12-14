@@ -1,6 +1,6 @@
 blib/
 pm_to_blib
-Test-Mock-LWP-Conditional-*/
+Test-Mock-LWP-Conditional-*
 MANIFEST
 MANIFEST.bak
 README
