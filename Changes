@@ -1,4 +1,7 @@
 Revision history for Perl extension Test::Mock::LWP::Conditional
 
+0.02
+        - require Test::Fake::HTTPD for tests
+
 0.01
         - original version

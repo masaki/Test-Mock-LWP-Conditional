@@ -23,6 +23,7 @@ my $builder = Module::Build->new(
     build_requires => {
         'Test::More' => '0.98',
         'Test::UseAllModules' => '0',
+        'Test::Fake::HTTPD', => '0.03',
     },
 
     test_files => 't/',
