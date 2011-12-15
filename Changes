@@ -1,5 +1,8 @@
 Revision history for Perl extension Test::Mock::LWP::Conditional
 
+0.03
+        - write POD abstract ...
+
 0.02
         - require Test::Fake::HTTPD for tests
 
