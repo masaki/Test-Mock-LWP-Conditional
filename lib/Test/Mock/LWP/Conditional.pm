@@ -64,7 +64,7 @@ sub reset_all {
 
 =head1 NAME
 
-Test::Mock::LWP::Conditional - A module that ...
+Test::Mock::LWP::Conditional - stubbing on LWP request
 
 =head1 SYNOPSIS
 
