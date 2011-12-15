@@ -124,6 +124,6 @@ L<Test::Mock::LWP>, L<Test::Mock::LWP::Dispatch>, L<Test::MockHTTP>, L<Test::LWP
 
 L<LWP::UserAgent>
 
-L<WebMock|https://github.com/bblimke/webmock>, L<FakeWeb|https://github.com/chrisk/fakeweb>
+L<https://github.com/bblimke/webmock>, L<https://github.com/chrisk/fakeweb>
 
 =cut
