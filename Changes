@@ -1,10 +1,10 @@
-Revision history for Perl extension Test::Mock::LWP::Conditional
+Revision history for Perl module Test::Mock::LWP::Conditional
 
-0.03
-        - write POD abstract ...
+0.03 2011-12-14
+ - write POD abstract ...
 
-0.02
-        - require Test::Fake::HTTPD for tests
+0.02 2011-12-14
+ - require Test::Fake::HTTPD for tests
 
-0.01
-        - original version
+0.01 2011-12-14
+ - original version
