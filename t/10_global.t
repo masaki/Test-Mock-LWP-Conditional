@@ -22,7 +22,16 @@ is status(lwp, $httpd->endpoint) => 404, 'returns a stub response';
 Test::Mock::LWP::Conditional->stub_request(
     $httpd->endpoint => sub { res(500) }
 );
-is status(lwp, $httpd->endpoint) => 500, 'returns a code stubed response';
+is status(lwp, $httpd->endpoint) => 500, 'returns a code stubbed response';
+
+my $url = $httpd->endpoint;
+my $regex = qr!$url/foo/ba[rz]/!;
+Test::Mock::LWP::Conditional->stub_request(
+    $regex => sub { res(500) }
+);
+is status(lwp, "$url/foo/bar/") => 500, 'returns a code stubbed response';
+is status(lwp, "$url/foo/baz/") => 500, 'returns a code stubbed response';
+
 
 done_testing;
 
