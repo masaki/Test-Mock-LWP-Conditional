@@ -13,3 +13,11 @@ MYMETA.*
 cover_db/
 nytprof.out
 *.sw[po]
+/Test-Mock-LWP-Conditional-*
+/.build
+/_build_params
+/Build
+/Build.bat
+!Build/
+!META.json
+!LICENSE
