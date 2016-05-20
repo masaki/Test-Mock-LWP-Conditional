@@ -21,5 +21,15 @@ is status($ua, $httpd->endpoint) => 404, 'returns a stub response';
 my $new_ua = lwp;
 is status($new_ua, $httpd->endpoint) => 204, 'another instance returns a real response';
 
+my $another_ua = lwp;
+my $url = $httpd->endpoint;
+my $regex = qr!$url/foo/ba[rz]/!;
+is status($another_ua, $url) => 204, 'returns a real response';
+
+$another_ua->stub_request($regex => res(404));
+is status($another_ua, "$url/foo/bar/") => 404, 'returns a stub response';
+is status($another_ua, "$url/foo/baz/") => 404, 'returns a stub response';
+is status($another_ua, "$url/foo/bee/") => 204, 'returns a real response';
+
 done_testing;
 

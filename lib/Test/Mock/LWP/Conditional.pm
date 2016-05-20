@@ -7,30 +7,53 @@ use LWP::UserAgent;
 use Scalar::Util qw(blessed refaddr);
 use Sub::Install qw(install_sub);
 use Class::Method::Modifiers qw(install_modifier);
+use Math::Random::Secure qw(irand);
 use Test::Mock::LWP::Conditional::Stubs;
 
 our $VERSION = '0.03';
 $VERSION = eval $VERSION;
 
 our $Stubs = +{ __GLOBAL__ => +{} };
+our $Regex = +{ __GLOBAL__ => +{} };
 
 sub _set_stub {
     my ($key, $uri, $res) = @_;
 
     $Stubs->{$key} ||= +{};
-    $Stubs->{$key}->{$uri} ||= Test::Mock::LWP::Conditional::Stubs->new;
 
+    if (ref $uri eq 'Regexp') {
+        my $rng = irand('9999999999999999');
+        $Regex->{$key}->{$rng} = $uri;
+        $uri = $rng;
+    }
+
+    $Stubs->{$key}->{$uri} ||= Test::Mock::LWP::Conditional::Stubs->new;
     $Stubs->{$key}->{$uri}->add($res);
 }
 
 sub _get_stub {
     my ($key, $uri) = @_;
 
-    if (exists $Stubs->{$key} && exists $Stubs->{$key}->{$uri}) {
-        return $Stubs->{$key}->{$uri};
+    if (exists $Stubs->{$key}) {
+        if (exists $Stubs->{$key}->{$uri}) {
+            return $Stubs->{$key}->{$uri};
+        }
+        return _check_regex($key, $uri);
     }
     elsif (exists $Stubs->{__GLOBAL__}->{$uri}) {
         return $Stubs->{__GLOBAL__}->{$uri};
+    } else {
+        return _check_regex("__GLOBAL__", $uri);
+    }
+}
+
+sub _check_regex {
+    my ($key, $uri) = @_;
+
+    foreach my $marker (keys %{$Regex->{$key}}) {
+        if ($uri =~ $Regex->{$key}->{$marker}) {
+            return $Stubs->{$key}->{$marker};
+        }
     }
 }
 
@@ -42,6 +65,7 @@ sub stub_request {
 
 sub reset_all {
     $Stubs = +{ __GLOBAL__ => +{} };
+    $Regex = +{ __GLOBAL__ => +{} };
 }
 
 { # LWP::UserAgent injection
