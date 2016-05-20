@@ -51,6 +51,7 @@
          "requires" : {
             "Class::Method::Modifiers" : "0",
             "LWP::UserAgent" : "0",
+            "Math::Random::Secure" : "0",
             "Scalar::Util" : "1.14",
             "Sub::Install" : "0",
             "perl" : "5.008001"

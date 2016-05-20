@@ -2,6 +2,7 @@ requires 'Class::Method::Modifiers';
 requires 'LWP::UserAgent';
 requires 'Scalar::Util', '1.14';
 requires 'Sub::Install';
+requires 'Math::Random::Secure';
 requires 'perl', '5.008001';
 
 on build => sub {
