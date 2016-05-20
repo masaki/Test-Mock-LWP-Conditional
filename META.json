@@ -70,7 +70,7 @@
          "web" : "https://github.com/masaki/Test-Mock-LWP-Conditional"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_authority" : "cpan:MASAKI",
    "x_contributors" : [
       "Michael Scragg <scraggm@mindbrix.com>",

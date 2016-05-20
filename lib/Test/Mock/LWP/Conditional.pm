@@ -10,7 +10,7 @@ use Class::Method::Modifiers qw(install_modifier);
 use Math::Random::Secure qw(irand);
 use Test::Mock::LWP::Conditional::Stubs;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 $VERSION = eval $VERSION;
 
 our $Stubs = +{ __GLOBAL__ => +{} };
