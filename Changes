@@ -1,5 +1,7 @@
 Revision history for Perl extension Test::Mock::LWP::Conditional
 
+{{$NEXT}}
+
 0.03
         - write POD abstract ...
 
