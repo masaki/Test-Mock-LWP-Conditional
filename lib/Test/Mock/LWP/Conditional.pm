@@ -10,6 +10,9 @@ use Class::Method::Modifiers qw(install_modifier);
 use Math::Random::Secure qw(irand);
 use Test::Mock::LWP::Conditional::Stubs;
 
+use URI;
+use URI::Split qw< uri_split uri_join >;
+
 our $VERSION = '0.04';
 $VERSION = eval $VERSION;
 
@@ -57,10 +60,22 @@ sub _check_regex {
     }
 }
 
+sub _normalize_uri {
+    my ($uri) = @_;
+    return $uri if ref($uri) eq 'Regexp';
+    my ($scheme, $auth, $path, $query) = uri_split($uri);
+    my $u = URI->new($uri);
+    my %params = $u->query_form;
+    my $qstr = join "&", map { "$_=$params{$_}" } sort keys %params;
+    return uri_join($scheme, $auth, $path, $qstr);
+}
+
 sub stub_request {
     my ($self, $uri, $res) = @_;
+
+    my $norm = _normalize_uri($uri);
     my $key = blessed($self) ? refaddr($self) : '__GLOBAL__';
-    _set_stub($key, $uri, $res);
+    _set_stub($key, $norm, $res);
 }
 
 sub reset_all {
@@ -73,7 +88,8 @@ sub reset_all {
         my $orig = shift;
         my ($self, $req, @rest) = @_;
 
-        my $stub = _get_stub(refaddr($self), $req->uri);
+        my $norm = _normalize_uri($req->uri);
+        my $stub = _get_stub(refaddr($self), $norm);
         return $stub ? $stub->execute($req) : $orig->(@_);
     });
 

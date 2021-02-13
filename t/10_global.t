@@ -33,5 +33,14 @@ is status(lwp, "$url/foo/bar/") => 500, 'returns a code stubbed response';
 is status(lwp, "$url/foo/baz/") => 500, 'returns a code stubbed response';
 
 
+my $q1 = "$url?foo=1&bar=2";
+my $q2 = "$url?bar=2&foo=1";
+Test::Mock::LWP::Conditional->stub_request(
+    $q1 => sub { res(204) }
+);
+
+is status(lwp, $q1) => 204, 'GET request';
+is status(lwp, $q2) => 204, 'GET request with parameters in different order';
+
 done_testing;
 
