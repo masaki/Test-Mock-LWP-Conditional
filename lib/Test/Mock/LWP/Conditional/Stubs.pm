@@ -31,10 +31,13 @@ sub execute {
     my $stub = $self->{stubs}->[$i] || $self->{stubs}->[-1] || return;
 
     if ($self->is_http_res($stub)) {
+        $stub->request($req);
         return $stub;
     }
     elsif (ref($stub) eq 'CODE') {
-        return $stub->($req);
+        my $res = $stub->($req);
+        $res->request($req);
+        return $res;
     }
 }
 
