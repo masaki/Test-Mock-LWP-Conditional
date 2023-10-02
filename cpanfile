@@ -9,4 +9,6 @@ on build => sub {
     requires 'Test::Fake::HTTPD', '0.03';
     requires 'Test::More', '0.98';
     requires 'Test::UseAllModules';
+    requires 'Test::TCP';
+    requires 'Test::SharedFork';
 };
